@@ -37,7 +37,7 @@ public class Statement {
         StringBuilder stringBuilder = new StringBuilder();
         for (Performance performance : invoice.getPerformances()) {
             Play play = plays.get(performance.getPlayId());
-            stringBuilder.append(String.format(" %s: %s (%d seats)\n", play.getName(), formatUSD(getPerformanceCalculator(play).getAmount(performance)), performance.getAudience()));
+            stringBuilder.append(String.format(" %s: %s (%d seats)\n", play.getName(), formatUSD(getPerformanceCalculator(play.getType()).getAmount(performance)), performance.getAudience()));
         }
         return stringBuilder;
     }
@@ -46,7 +46,7 @@ public class Statement {
         int volumeCredits = 0;
         for (Performance performance : invoice.getPerformances()) {
             Play play = plays.get(performance.getPlayId());
-            volumeCredits += getPerformanceCalculator(play).getVolumeCredits(performance);
+            volumeCredits += getPerformanceCalculator(play.getType()).getVolumeCredits(performance);
         }
         return volumeCredits;
     }
@@ -55,17 +55,17 @@ public class Statement {
         int totalAmount = 0;
         for (Performance performance : invoice.getPerformances()) {
             Play play = plays.get(performance.getPlayId());
-            totalAmount += getPerformanceCalculator(play).getAmount(performance);
+            totalAmount += getPerformanceCalculator(play.getType()).getAmount(performance);
         }
         return totalAmount;
     }
 
-    private static AbstractPerformanceCalculator getPerformanceCalculator(Play play) {
-        if ("tragedy".equals(play.getType())) {
+    private static AbstractPerformanceCalculator getPerformanceCalculator(String type) {
+        if ("tragedy".equals(type)) {
             return new TragedyCalculator();
         }
 
-        if ("comedy".equals(play.getType())) {
+        if ("comedy".equals(type)) {
             return new ComedyCalculator();
         }
         return null;

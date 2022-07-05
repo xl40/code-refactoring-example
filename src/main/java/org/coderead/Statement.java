@@ -28,8 +28,8 @@ public class Statement {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(String.format("Statement for %s", invoice.getCustomer()));
         stringBuilder.append(formatPerformances());
-        stringBuilder.append(String.format("Amount owed is %s\n", formatUSD(getTotalAmount())));
-        stringBuilder.append(String.format("You earned %s credits\n", getVolumeCredits()));
+        stringBuilder.append(String.format("Amount owed is %s\n", formatUSD(getTotalAmount(plays))));
+        stringBuilder.append(String.format("You earned %s credits\n", getVolumeCredits(plays)));
         return stringBuilder.toString();
     }
 
@@ -42,7 +42,7 @@ public class Statement {
         return stringBuilder;
     }
 
-    private int getVolumeCredits() {
+    private int getVolumeCredits(Map<String, Play> plays) {
         int volumeCredits = 0;
         for (Performance performance : invoice.getPerformances()) {
             Play play = plays.get(performance.getPlayId());
@@ -51,7 +51,7 @@ public class Statement {
         return volumeCredits;
     }
 
-    private int getTotalAmount() {
+    private int getTotalAmount(Map<String, Play> plays) {
         int totalAmount = 0;
         for (Performance performance : invoice.getPerformances()) {
             Play play = plays.get(performance.getPlayId());

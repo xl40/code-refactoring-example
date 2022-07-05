@@ -37,7 +37,7 @@ public class Statement {
         StringBuilder stringBuilder = new StringBuilder();
         for (Performance performance : invoice.getPerformances()) {
             Play play = plays.get(performance.getPlayId());
-            stringBuilder.append(String.format(" %s: %s (%d seats)\n", play.getName(), formatUSD(AbstractPerformanceCalculator.getPerformanceCalculator(play.getType()).getAmount(performance)), performance.getAudience()));
+            stringBuilder.append(String.format(" %s: %s (%d seats)\n", play.getName(), formatUSD(AbstractPerformanceCalculator.of(play.getType()).getAmount(performance)), performance.getAudience()));
         }
         return stringBuilder;
     }
@@ -46,7 +46,7 @@ public class Statement {
         int volumeCredits = 0;
         for (Performance performance : invoice.getPerformances()) {
             Play play = plays.get(performance.getPlayId());
-            volumeCredits += AbstractPerformanceCalculator.getPerformanceCalculator(play.getType()).getVolumeCredits(performance);
+            volumeCredits += AbstractPerformanceCalculator.of(play.getType()).getVolumeCredits(performance);
         }
         return volumeCredits;
     }
@@ -55,7 +55,7 @@ public class Statement {
         int totalAmount = 0;
         for (Performance performance : invoice.getPerformances()) {
             Play play = plays.get(performance.getPlayId());
-            totalAmount += AbstractPerformanceCalculator.getPerformanceCalculator(play.getType()).getAmount(performance);
+            totalAmount += AbstractPerformanceCalculator.of(play.getType()).getAmount(performance);
         }
         return totalAmount;
     }

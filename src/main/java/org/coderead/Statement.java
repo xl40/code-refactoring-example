@@ -28,8 +28,8 @@ public class Statement {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(String.format("Statement for %s", invoice.getCustomer()));
         stringBuilder.append(formatPerformances());
-        stringBuilder.append(String.format("Amount owed is %s\n", formatUSD(getTotalAmount(plays))));
-        stringBuilder.append(String.format("You earned %s credits\n", getVolumeCredits(plays)));
+        stringBuilder.append(String.format("Amount owed is %s\n", formatUSD(invoice.getTotalAmount(plays))));
+        stringBuilder.append(String.format("You earned %s credits\n", invoice.getVolumeCredits(plays)));
         return stringBuilder.toString();
     }
 
@@ -40,24 +40,6 @@ public class Statement {
             stringBuilder.append(String.format(" %s: %s (%d seats)\n", play.getName(), formatUSD(AbstractPerformanceCalculator.of(play.getType()).getAmount(performance)), performance.getAudience()));
         }
         return stringBuilder;
-    }
-
-    private int getVolumeCredits(Map<String, Play> plays) {
-        int volumeCredits = 0;
-        for (Performance performance : invoice.getPerformances()) {
-            Play play = plays.get(performance.getPlayId());
-            volumeCredits += AbstractPerformanceCalculator.of(play.getType()).getVolumeCredits(performance);
-        }
-        return volumeCredits;
-    }
-
-    private int getTotalAmount(Map<String, Play> plays) {
-        int totalAmount = 0;
-        for (Performance performance : invoice.getPerformances()) {
-            Play play = plays.get(performance.getPlayId());
-            totalAmount += AbstractPerformanceCalculator.of(play.getType()).getAmount(performance);
-        }
-        return totalAmount;
     }
 
     private String formatUSD(double amount) {

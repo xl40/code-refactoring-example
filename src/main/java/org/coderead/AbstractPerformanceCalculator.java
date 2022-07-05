@@ -4,7 +4,7 @@ import org.coderead.model.Performance;
 
 public abstract class AbstractPerformanceCalculator {
 
-    static AbstractPerformanceCalculator of(String type) {
+    public static AbstractPerformanceCalculator of(String type) {
         if ("tragedy".equals(type)) {
             return new TragedyCalculator();
         }
@@ -15,8 +15,8 @@ public abstract class AbstractPerformanceCalculator {
         return null;
     }
 
-    abstract double getVolumeCredits(Performance performance);
+    public abstract double getVolumeCredits(Performance performance);
 
-    abstract double getAmount(Performance performance);
+    public abstract double getAmount(Performance performance);
 
 }

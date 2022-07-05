@@ -37,9 +37,13 @@ public class Statement {
         StringBuilder stringBuilder = new StringBuilder();
         for (Performance performance : invoice.getPerformances()) {
             Play play = plays.get(performance.getPlayId());
-            stringBuilder.append(String.format(" %s: %s (%d seats)\n", play.getName(), formatUSD(AbstractPerformanceCalculator.of(play.getType()).getAmount(performance)), performance.getAudience()));
+            stringBuilder.append(formatPerformance(performance, play));
         }
         return stringBuilder;
+    }
+
+    private String formatPerformance(Performance performance, Play play) {
+        return String.format(" %s: %s (%d seats)\n", play.getName(), formatUSD(AbstractPerformanceCalculator.of(play.getType()).getAmount(performance)), performance.getAudience());
     }
 
     private String formatUSD(double amount) {

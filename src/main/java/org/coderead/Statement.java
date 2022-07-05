@@ -60,7 +60,7 @@ public class Statement {
         return totalAmount;
     }
 
-    private IPerformanceCalculator getPerformanceCalculator(Play play) {
+    private static AbstractPerformanceCalculator getPerformanceCalculator(Play play) {
         if ("tragedy".equals(play.getType())) {
             return new TragedyCalculator();
         }

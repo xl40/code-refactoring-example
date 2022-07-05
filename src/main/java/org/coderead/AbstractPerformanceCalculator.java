@@ -2,7 +2,7 @@ package org.coderead;
 
 import org.coderead.model.Performance;
 
-public abstract class IPerformanceCalculator {
+public abstract class AbstractPerformanceCalculator {
 
     abstract double getVolumeCredits(Performance performance);
 

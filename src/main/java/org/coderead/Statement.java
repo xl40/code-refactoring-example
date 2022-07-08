@@ -54,11 +54,16 @@ public class Statement {
                     throw new RuntimeException("unknown type:" + play.getType());
             }
 
-            volumeCredits += Math.max(performance.getAudience() - 30, 0);
-
-            if ("comedy".equals(play.getType())) {
-                volumeCredits += Math.floor(performance.getAudience() / 5);
+            double volumeCredits_v2 = 0;
+            if ("tragedy".equals(play.getType())){
+                volumeCredits_v2 = Math.max(performance.getAudience() - 30, 0);
             }
+            if ("comedy".equals(play.getType())) {
+                int max = Math.max(performance.getAudience() - 30, 0);
+                double floor = Math.floor(performance.getAudience() / 5);
+                volumeCredits_v2 = max + floor;
+            }
+            volumeCredits += volumeCredits_v2;
 
             stringBuilder.append(String.format(" %s: %s (%d seats)\n", play.getName(), format.format(thisAmount/100), performance.getAudience()));
             totalAmount += thisAmount;

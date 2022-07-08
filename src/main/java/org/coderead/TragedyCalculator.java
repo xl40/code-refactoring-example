@@ -2,11 +2,12 @@ package org.coderead;
 
 import org.coderead.model.Performance;
 
-public class TragedyCalculator {
+public class TragedyCalculator implements ICalculator {
     public TragedyCalculator() {
     }
 
-    int getAmount(Performance performance) {
+    @Override
+    public int getAmount(Performance performance) {
         int thisAmount;
         thisAmount = 40000;
         if (performance.getAudience() > 30) {
@@ -15,7 +16,8 @@ public class TragedyCalculator {
         return thisAmount;
     }
 
-    int getVolumeCredits(Performance performance) {
+    @Override
+    public double getVolumeCredits(Performance performance) {
         return Math.max(performance.getAudience() - 30, 0);
     }
 }

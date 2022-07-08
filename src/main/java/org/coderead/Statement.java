@@ -16,8 +16,8 @@ import java.util.Map;
  */
 public class Statement {
 
-    private final TragedyCalculator tragedyCalculator = new TragedyCalculator();
-    private final ComedyCalculator comedyCalculator = new ComedyCalculator();
+    private final ICalculator tragedyCalculator = new TragedyCalculator();
+    private final ICalculator comedyCalculator = new ComedyCalculator();
     private Invoice invoice;
     private Map<String, Play> plays;
 
@@ -81,14 +81,14 @@ public class Statement {
     }
 
     private double getVolumeCredits(Performance performance, Play play) {
-        double volumeCredits_v2 = 0;
+        ICalculator iCalculator = null;
         if ("tragedy".equals(play.getType())) {
-            volumeCredits_v2 = tragedyCalculator.getVolumeCredits(performance);
+            iCalculator = tragedyCalculator;
         }
         if ("comedy".equals(play.getType())) {
-            volumeCredits_v2 = comedyCalculator.getVolumeCredits(performance);
+            iCalculator = comedyCalculator;
         }
-        return volumeCredits_v2;
+        return iCalculator.getVolumeCredits(performance);
     }
 
 }

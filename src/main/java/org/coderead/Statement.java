@@ -66,19 +66,7 @@ public class Statement {
     }
 
     private int getThisAmount(Performance performance, Play play) {
-         getiCalculator(play).getVolumeCredits(performance);
-        int thisAmount = 0;
-        switch (play.getType()) {
-            case "tragedy":
-                thisAmount = tragedyCalculator.getAmount(performance);
-                break;
-            case "comedy":
-                thisAmount = comedyCalculator.getAmount(performance);
-                break;
-            default:
-                throw new RuntimeException("unknown type:" + play.getType());
-        }
-        return thisAmount;
+        return getiCalculator(play).getAmount(performance);
     }
 
     private double getVolumeCredits(Performance performance, Play play) {

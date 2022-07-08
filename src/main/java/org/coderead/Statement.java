@@ -66,6 +66,7 @@ public class Statement {
     }
 
     private int getThisAmount(Performance performance, Play play) {
+         getiCalculator(play).getVolumeCredits(performance);
         int thisAmount = 0;
         switch (play.getType()) {
             case "tragedy":
@@ -81,6 +82,10 @@ public class Statement {
     }
 
     private double getVolumeCredits(Performance performance, Play play) {
+        return getiCalculator(play).getVolumeCredits(performance);
+    }
+
+    private ICalculator getiCalculator(Play play) {
         ICalculator iCalculator = null;
         if ("tragedy".equals(play.getType())) {
             iCalculator = tragedyCalculator;
@@ -88,7 +93,7 @@ public class Statement {
         if ("comedy".equals(play.getType())) {
             iCalculator = comedyCalculator;
         }
-        return iCalculator.getVolumeCredits(performance);
+        return iCalculator;
     }
 
 }

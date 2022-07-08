@@ -16,6 +16,8 @@ import java.util.Map;
  */
 public class Statement {
 
+    private final TragedyCalculator tragedyCalculator = new TragedyCalculator();
+    private final ComedyCalculator comedyCalculator = new ComedyCalculator();
     private Invoice invoice;
     private Map<String, Play> plays;
 
@@ -25,9 +27,7 @@ public class Statement {
     }
 
     public String show() {
-
         StringBuilder stringBuilder = new StringBuilder();
-
         stringBuilder.append(getStringBuilder(String.format("Statement for %s", invoice.getCustomer())));
         stringBuilder.append(String.format("Amount owed is %s\n", formatUSD(getTotalAmount())));
         stringBuilder.append(String.format("You earned %s credits\n", getVolumeCredits()));
@@ -69,10 +69,10 @@ public class Statement {
         int thisAmount = 0;
         switch (play.getType()) {
             case "tragedy":
-                thisAmount = getTragedyAmount(performance);
+                thisAmount = tragedyCalculator.getAmount(performance);
                 break;
             case "comedy":
-                thisAmount = getComedyAmount(performance);
+                thisAmount = comedyCalculator.getAmount(performance);
                 break;
             default:
                 throw new RuntimeException("unknown type:" + play.getType());
@@ -80,45 +80,15 @@ public class Statement {
         return thisAmount;
     }
 
-    private int getComedyAmount(Performance performance) {
-        int thisAmount;
-        thisAmount = 30000;
-        if (performance.getAudience() > 20) {
-            thisAmount += 10000 + 500 * (performance.getAudience() - 20);
-        }
-        thisAmount += 300 * performance.getAudience();
-        return thisAmount;
-    }
-
-    private int getTragedyAmount(Performance performance) {
-        int thisAmount;
-        thisAmount = 40000;
-        if (performance.getAudience() > 30) {
-            thisAmount += 1000 * (performance.getAudience() - 30);
-        }
-        return thisAmount;
-    }
-
     private double getVolumeCredits(Performance performance, Play play) {
         double volumeCredits_v2 = 0;
         if ("tragedy".equals(play.getType())) {
-            volumeCredits_v2 = getTragedyVolumeCredits(performance);
+            volumeCredits_v2 = tragedyCalculator.getVolumeCredits(performance);
         }
         if ("comedy".equals(play.getType())) {
-            volumeCredits_v2 = getComedyVolumeCredits(performance);
+            volumeCredits_v2 = comedyCalculator.getVolumeCredits(performance);
         }
         return volumeCredits_v2;
     }
 
-    private double getComedyVolumeCredits(Performance performance) {
-        double volumeCredits_v2;
-        int max = Math.max(performance.getAudience() - 30, 0);
-        double floor = Math.floor(performance.getAudience() / 5);
-        volumeCredits_v2 = max + floor;
-        return volumeCredits_v2;
-    }
-
-    private int getTragedyVolumeCredits(Performance performance) {
-        return Math.max(performance.getAudience() - 30, 0);
-    }
 }

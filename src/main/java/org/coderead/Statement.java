@@ -16,8 +16,6 @@ import java.util.Map;
  */
 public class Statement {
 
-    private final ICalculator tragedyCalculator = new TragedyCalculator();
-    private final ICalculator comedyCalculator = new ComedyCalculator();
     private Invoice invoice;
     private Map<String, Play> plays;
 
@@ -48,11 +46,11 @@ public class Statement {
     }
 
     public int getThisAmount(Performance performance, Play play) {
-        return ICalculator.getiCalculator(comedyCalculator, tragedyCalculator, play).getAmount(performance);
+        return ICalculator.getiCalculator(play).getAmount(performance);
     }
 
     public double getVolumeCredits(Performance performance, Play play) {
-        return ICalculator.getiCalculator(comedyCalculator, tragedyCalculator, play).getVolumeCredits(performance);
+        return ICalculator.getiCalculator(play).getVolumeCredits(performance);
     }
 
 }

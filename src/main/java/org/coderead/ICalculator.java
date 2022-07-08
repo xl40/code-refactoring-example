@@ -5,13 +5,13 @@ import org.coderead.model.Play;
 
 public interface ICalculator {
 
-    static ICalculator getiCalculator(ICalculator comedyCalculator, ICalculator tragedyCalculator, Play play) {
+    static ICalculator getiCalculator(Play play) {
         ICalculator iCalculator = null;
         if ("tragedy".equals(play.getType())) {
-            iCalculator = tragedyCalculator;
+            iCalculator = new TragedyCalculator();
         }
         if ("comedy".equals(play.getType())) {
-            iCalculator = comedyCalculator;
+            iCalculator = new ComedyCalculator();
         }
         return iCalculator;
     }

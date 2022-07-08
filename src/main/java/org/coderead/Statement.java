@@ -36,21 +36,13 @@ public class Statement {
         StringBuilder stringBuilder_v2 = new StringBuilder(result);
         for (Performance performance : invoice.getPerformances()) {
             Play play = plays.get(performance.getPlayId());
-            stringBuilder_v2.append(String.format(" %s: %s (%d seats)\n", play.getName(), formatUSD(getThisAmount(performance, play)), performance.getAudience()));
+            stringBuilder_v2.append(String.format(" %s: %s (%d seats)\n", play.getName(), formatUSD(performance.getThisAmount(play)), performance.getAudience()));
         }
         return stringBuilder_v2;
     }
 
     private String formatUSD(int amount) {
         return NumberFormat.getCurrencyInstance(new Locale("en", "US")).format(amount / 100);
-    }
-
-    public int getThisAmount(Performance performance, Play play) {
-        return ICalculator.getiCalculator(play).getAmount(performance);
-    }
-
-    public double getVolumeCredits(Performance performance, Play play) {
-        return ICalculator.getiCalculator(play).getVolumeCredits(performance);
     }
 
 }

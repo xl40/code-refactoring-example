@@ -1,5 +1,7 @@
 package org.coderead.model;
 
+import org.coderead.ICalculator;
+
 /**
  * 表演
  *
@@ -26,5 +28,9 @@ public class Performance {
 
     public void setAudience(int audience) {
         this.audience = audience;
+    }
+
+    public int getThisAmount(Play play) {
+        return ICalculator.getiCalculator(play).getAmount(this);
     }
 }

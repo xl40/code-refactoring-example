@@ -1,5 +1,6 @@
 package org.coderead.model;
 
+import org.coderead.ICalculator;
 import org.coderead.Statement;
 
 import java.util.List;
@@ -37,7 +38,7 @@ public class Invoice {
         int totalAmount = 0;
         for (Performance performance : getPerformances()) {
             Play play = plays.get(performance.getPlayId());
-            totalAmount += statement.getThisAmount(performance, play);
+            totalAmount += performance.getThisAmount(play);
         }
         return totalAmount;
     }
@@ -46,7 +47,7 @@ public class Invoice {
         int volumeCredits = 0;
         for (Performance performance : getPerformances()) {
             Play play = plays.get(performance.getPlayId());
-            volumeCredits += statement.getVolumeCredits(performance, play);
+            volumeCredits += ICalculator.getiCalculator(play).getVolumeCredits(performance);
         }
         return volumeCredits;
     }

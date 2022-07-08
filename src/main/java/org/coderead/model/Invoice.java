@@ -47,7 +47,7 @@ public class Invoice {
         int volumeCredits = 0;
         for (Performance performance : getPerformances()) {
             Play play = plays.get(performance.getPlayId());
-            volumeCredits += ICalculator.getiCalculator(play).getVolumeCredits(performance);
+            volumeCredits += ICalculator.of(play).getVolumeCredits(performance);
         }
         return volumeCredits;
     }

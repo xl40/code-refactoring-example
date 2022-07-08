@@ -5,7 +5,7 @@ import org.coderead.model.Play;
 
 public interface ICalculator {
 
-    static ICalculator getiCalculator(Play play) {
+    static ICalculator of(Play play) {
         ICalculator iCalculator = null;
         if ("tragedy".equals(play.getType())) {
             iCalculator = new TragedyCalculator();

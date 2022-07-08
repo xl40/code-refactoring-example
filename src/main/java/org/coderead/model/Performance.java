@@ -31,6 +31,6 @@ public class Performance {
     }
 
     public int getThisAmount(Play play) {
-        return ICalculator.getiCalculator(play).getAmount(this);
+        return ICalculator.of(play).getAmount(this);
     }
 }
